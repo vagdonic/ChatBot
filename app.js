@@ -1,6 +1,8 @@
 const express = require('express');
+var bodyParser = require('body-parser')
 const app = express();
 const mongoose = require('mongoose');
+app.use(express.static("./images/"));
 const Academic = require('./models/academicModel')
 mongoose.connect('mongodb+srv://vagdonic:vagdonic123@cluster0.7hivh.mongodb.net/studentdb?retryWrites=true&w=majority', 
 {
@@ -38,5 +40,22 @@ app.get('/academic', function(req, res){
         res.json(data)
     })
 })
+
+app.use(bodyParser());
+
+app.get('/',function(req,res) {
+    res.sendFile('/Users/manav/Desktop/cad/index.html');
+});
+
+
+app.post('/test', function(req, res) {
+    var item = req.body.userSearchInput;
+    Academic.find().select(item).then((data) => {
+        res.json(data)
+    })
+});
+
+
+
 
 app.listen(4000)
