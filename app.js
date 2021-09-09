@@ -44,13 +44,12 @@ app.get('/academic', function(req, res){
 })
 
 app.use(bodyParser());
-app.use(express.static('cad'))
 
 app.get('/',function(req,res) {
-    res.sendFile("/Users/manav/Documents/cad/index.html");
+    res.sendFile("/home/ubuntu/ChatBot/index.html");
 });
 
-app.post('/responses', function(req, res) {
+app.post('/', function(req, res) {
     var item = req.body.userSearchInput;
     console.log(item);
     Academic.find().select(item).then((data) => {
@@ -60,7 +59,7 @@ app.post('/responses', function(req, res) {
 });
 
 
-app.post('/random', function(req, res) {
+/*app.post('/random', function(req, res) {
     Academic.aggregate([{
         $lookup:{
             from:"degrees",
@@ -74,5 +73,6 @@ app.post('/random', function(req, res) {
 });
 
 });
+*/
 
 app.listen(4000)
