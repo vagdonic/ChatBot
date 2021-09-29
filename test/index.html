@@ -1,0 +1,45 @@
+<html>
+<head>
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<div id="chatapp">
+  <div class="messagebar">
+    <input class="new-chat"
+      autofocus autocomplete="off"
+      placeholder="Type your message and hit enter"
+      v-model="newTodo"
+      @keyup.enter="addTodo">
+  </div>
+  <div class="main">
+    <ul class="todo-list">
+      
+      <li class="todo botmsg">
+        <div class="view">
+          <label>Hello</label>
+        </div>
+      </li>
+      
+      <li v-for="todo in filteredTodos"
+        class="todo"
+        :key="todo.id"
+        :class="{ completed: todo.completed, editing: todo == editedTodo }">
+        <div class="view">
+          <label>{{ todo.title }}</label>
+          <button class="destroy" @click="removeTodo(todo)"></button>
+        </div>
+      </li>
+      
+      <li v-for="todo in filteredTodos"
+        class="todo botmsg"
+        :key="todo.id">
+        <div class="view">
+          <label>{{ todo.title }}</label>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+</html>
+

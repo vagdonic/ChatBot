@@ -30,7 +30,6 @@ const data = new Academic({
     theory: "Yes",
     semester: "7"
 });
-
 data.save().then((result) => {
     console.warn(result);
 })
@@ -46,7 +45,7 @@ app.get('/academic', function(req, res){
 app.use(bodyParser());
 
 app.get('/',function(req,res) {
-    res.sendFile("/home/ubuntu/ChatBot/index.html");
+    res.sendFile("/Users/manav/Documents/cad/index3.html");
 });
 
 app.post('/', function(req, res) {
@@ -59,20 +58,19 @@ app.post('/', function(req, res) {
 });
 
 
-/*app.post('/random', function(req, res) {
+app.post('/random', function(req, res) {
     Academic.aggregate([{
         $lookup:{
             from:"degrees",
-            localField:"_id",
-            foreignField:"degree_name",
+            localField:"degree_id",
+            foreignField:"iD",
             as:"degree_data"
         }
     }], function (error, data) {
         return res.json(data);
     //handle error case also
 });
-
 });
-*/
+
 
 app.listen(4000)
