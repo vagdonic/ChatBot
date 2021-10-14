@@ -9,7 +9,8 @@ async function main() {
     try {
         await client.connect();
        // await listDatabases(client);
-       await profAndDegrees(client);
+       // await profAndDegrees(client);
+       // await profAndTheory(client);
     } catch(e) {
         console.error(e);
     } finally {
@@ -17,8 +18,30 @@ async function main() {
     }
 }
 
+
+
 main().catch(console.error);
-async function profAndDegrees(client) {
+function profAndDegrees(client) {
+    const pipeline = [
+            {
+                $lookup:{
+                from:"degrees",
+                localField:"degree_id",
+                foreignField:"iD",
+                as:"degree_data"
+            }
+        }
+    ];
+    const aggCursor = client.db("studentdb").collection("academic").aggregate(pipeline);
+
+    aggCursor.forEach(profAndDegreeList => {
+        console.log("Subject: " + `${profAndDegreeList.subject}`)
+        console.log("Taught by: " + `${profAndDegreeList.faculty}`)
+        console.log();
+    });
+}
+
+async function profAndTheory(client) {
     const pipeline = [
             {
                 $lookup:{
@@ -33,7 +56,13 @@ async function profAndDegrees(client) {
 
     await aggCursor.forEach(profAndDegreeList => {
         console.log("Subject: " + `${profAndDegreeList.subject}`)
-        console.log("Taught by: " + `${profAndDegreeList.faculty}`)
+        console.log("Theory provided: " + `${profAndDegreeList.theory}`)
+        console.log("Lab provided: " + `${profAndDegreeList.lab}`)
+
         console.log();
     });
 }
+
+app.post('/request', function(req, res) {
+    await profAndDegrees(client);
+});

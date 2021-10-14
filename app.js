@@ -58,7 +58,7 @@ app.post('/', function(req, res) {
 });
 
 
-app.post('/random', function(req, res) {
+app.get('/random', function(req, res) {
     Academic.aggregate([{
         $lookup:{
             from:"degrees",
@@ -67,10 +67,32 @@ app.post('/random', function(req, res) {
             as:"degree_data"
         }
     }], function (error, data) {
-        return res.json(data);
+        data.forEach(myDataList => {
+            console.log("Faculty: " + `${myDataList.faculty}`)
+            });
+        // res.json(data)
     //handle error case also
 });
 });
 
+app.get('/req', function(req, res) {
+    const pipeline = [
+        {
+            $lookup:{
+            from:"degrees",
+            localField:"degree_id",
+            foreignField:"iD",
+            as:"degree_data"
+        }
+    }
+    ];
+    const aggCursor = mongoose.db("studentdb").collection("academic").aggregate(pipeline);
+
+    aggCursor.forEach(profAndDegreeList => {
+    console.log("Subject: " + `${profAndDegreeList.subject}`)
+    console.log("Taught by: " + `${profAndDegreeList.faculty}`)
+    console.log();
+    });
+});
 
 app.listen(4000)
