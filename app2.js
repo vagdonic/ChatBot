@@ -8,9 +8,9 @@ async function main() {
 
     try {
         await client.connect();
-       // await listDatabases(client);
-       // await profAndDegrees(client);
-       // await profAndTheory(client);
+       //await listDatabases(client);
+       await profAndDegrees(client);
+       await profAndTheory(client);
     } catch(e) {
         console.error(e);
     } finally {
@@ -21,7 +21,7 @@ async function main() {
 
 
 main().catch(console.error);
-function profAndDegrees(client) {
+async function profAndDegrees(client) {
     const pipeline = [
             {
                 $lookup:{
@@ -62,7 +62,3 @@ async function profAndTheory(client) {
         console.log();
     });
 }
-
-app.post('/request', function(req, res) {
-    await profAndDegrees(client);
-});
