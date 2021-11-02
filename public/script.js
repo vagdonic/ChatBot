@@ -8,7 +8,7 @@ console.log(msgerForm);
 const BOT_MSGS = [
   "Hi, how are you?",
   "Ohh... I can't understand what you trying to say. Sorry!",
-  "I like to play games... But I don't know how to play!",
+  "I like to play games. But I don't know how to play!",
   "Sorry if my answers are not relevant. :)",
   "I feel sleepy! :("
 ];
