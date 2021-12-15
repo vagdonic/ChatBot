@@ -43,7 +43,7 @@ app.get('/academic', function(req, res){
 })
 
 app.get('/',function(req,res) {
-    res.sendFile("/Users/manav/Documents/cad/index4.html");
+    res.sendFile("/Users/manav/Documents/cad/index.html");
 });
 
 app.post('/', function(req, res) {
@@ -91,11 +91,6 @@ Academic.aggregate([{
     console.log(arr);
 //handle error case also
 });
-
-
-var myArray = myFunction();
-console.log("i did it: ", myArray);
-
 
 
 app.get('/subject', function(req, res) {
